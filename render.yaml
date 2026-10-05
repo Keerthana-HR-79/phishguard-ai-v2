@@ -9,7 +9,7 @@
 # "*" to the exact Vercel URL and redeploy.
 services:
   - type: web
-    name: phishguard-backend
+    name: phishguard-backend-v2
     runtime: python
     rootDir: backend                 # requirements.txt + main.py live in backend/
     plan: free                       # 512 MB RAM; spins down after ~15 min idle
