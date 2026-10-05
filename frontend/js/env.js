@@ -8,4 +8,4 @@
 // Deployed:  set it to your Render backend URL, e.g.
 //   window.PHISHGUARD_API_BASE = "https://phishguard-backend.onrender.com";
 // then commit + push — Vercel auto-redeploys the static site.
-window.PHISHGUARD_API_BASE = "https://phishguard-backend-ihvp.onrender.com";
+window.PHISHGUARD_API_BASE = "https://phishguard-backend-v2-qxrz.onrender.com";
