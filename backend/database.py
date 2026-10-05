@@ -13,6 +13,17 @@ from contextlib import closing
 
 DB_PATH = os.environ.get("PHISHGUARD_DB", "phishguard.db")
 
+# Retention: events older than this are purged so the scan log stays bounded
+# as more URLs get checked. Env-configurable like DB_PATH (default 30 days).
+try:
+    RETENTION_DAYS = int(os.environ.get("PHISHGUARD_RETENTION_DAYS", "30"))
+except (TypeError, ValueError):
+    RETENTION_DAYS = 30
+
+# Throttle state: the once-per-day purge is triggered from log_event (below),
+# so a long-running server stays bounded without a separate scheduler.
+_last_purge_day = None
+
 
 def _get_conn():
     conn = sqlite3.connect(DB_PATH)
@@ -43,6 +54,47 @@ def init_db():
         conn.commit()
 
 
+def purge_old_events(retention_days: int = None) -> int:
+    """Delete events older than `retention_days` (default RETENTION_DAYS=30).
+
+    Keeps `phishing_events` bounded so the scan log can't grow without limit.
+    Returns the number of rows deleted. Timestamps are stored as ISO-8601 UTC
+    strings, which sort chronologically as plain text, so a lexical `<` compare
+    against an ISO cutoff selects exactly the older rows — and uses idx_timestamp.
+    """
+    days = RETENTION_DAYS if retention_days is None else retention_days
+    try:
+        days = int(days)
+    except (TypeError, ValueError):
+        days = 30
+    days = max(1, days)
+    cutoff = (datetime.datetime.utcnow() - datetime.timedelta(days=days)).isoformat()
+    with closing(_get_conn()) as conn:
+        cur = conn.execute(
+            "DELETE FROM phishing_events WHERE timestamp < ?",
+            (cutoff,),
+        )
+        conn.commit()
+        return cur.rowcount
+
+
+def _maybe_purge():
+    """Run retention cleanup at most once per calendar day (best-effort).
+
+    Called from log_event so the table is trimmed during normal use without a
+    scheduler. Never raises — a cleanup failure must not break a scan/log.
+    """
+    global _last_purge_day
+    today = datetime.date.today()
+    if _last_purge_day == today:
+        return
+    _last_purge_day = today
+    try:
+        purge_old_events()
+    except Exception:
+        pass
+
+
 def log_event(type_: str, content: str, result: str, risk_score: float, response_time: float = 0):
     """Insert one detection event into the database."""
     with closing(_get_conn()) as conn:
@@ -61,6 +113,8 @@ def log_event(type_: str, content: str, result: str, risk_score: float, response
             ),
         )
         conn.commit()
+    # Keep the table bounded (best-effort, throttled to once per day).
+    _maybe_purge()
 
 
 def get_stats() -> dict:
