@@ -1,0 +1,40 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# ─── Trained-model backups (large; live model.pkl IS committed) ───
+backend/model_backup_*/
+
+# ─── Large raw datasets (regenerate via build_*.py / refresh_feeds.py) ───
+data/raw/kaggle.csv
+data/raw/phishtank.csv
+data/raw/tranco.csv
+data/raw/phishing-domains-ACTIVE.txt
+data/raw/*.bak_*
+
+# ─── Large processed datasets (regenerate via build_*.py / harvest_fresh_data.py) ───
+data/processed/final_dataset.csv
+data/processed/tranco_top1m.zip
+data/processed/legit_urls.csv
+data/processed/fresh_phishing.csv
+# NOTE: adversarial_phishing.csv, fresh_holdout.csv are small + kept for reproducible eval
+
+# ─── Runtime / generated ──────────────────────────────────
+backend/*.db
+backend/phishguard.db
+*.log
+
+# ─── OS / editor ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+
+# ─── Next.js backup (dead weight, not part of the shipped site) ───
+frontend_nextjs_backup/

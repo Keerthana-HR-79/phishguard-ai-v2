@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — PhishGuard AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-dashboard">
+  <nav class="navbar">
+    <a class="navbar-logo" href="index.html">🛡️ PhishGuard AI</a>
+    <ul class="navbar-links">
+      <li><a class="navbar-link" href="index.html">Home</a></li>
+      <li><a class="navbar-link" href="url-checker.html">URL Checker</a></li>
+      <li><a class="navbar-link active" href="dashboard.html">Dashboard</a></li>
+      <li><a class="navbar-link" href="extension.html">Extension</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    <div class="topBar">
+      <h1>Analytics Dashboard</h1>
+      <button id="refreshBtn" class="btn-secondary">↻ Refresh</button>
+    </div>
+    <div id="dashboardRoot" aria-live="polite">
+      <div class="loading">Loading dashboard…</div>
+    </div>
+  </main>
+
+  <script src="js/env.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

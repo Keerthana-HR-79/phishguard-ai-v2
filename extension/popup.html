@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1117;
+      color: #e8eaf6;
+      font-size: 14px;
+    }
+
+    /* Header */
+    .header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px; border-bottom: 1px solid #2e3150;
+      background: #1a1d27;
+    }
+    .logo { font-size: 22px; }
+    .title { font-size: 15px; font-weight: 700; }
+    .subtitle { font-size: 11px; color: #8b90b8; margin-top: 1px; }
+
+    /* URL strip */
+    .url-bar {
+      padding: 10px 16px;
+      background: #222535;
+      border-bottom: 1px solid #2e3150;
+      font-size: 11px; color: #8b90b8;
+      word-break: break-all;
+    }
+    .url-bar span { color: #e8eaf6; }
+
+    /* Result area */
+    .result {
+      padding: 20px 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      min-height: 120px; justify-content: center;
+    }
+    .verdict-icon { font-size: 40px; }
+    .verdict-text { font-size: 20px; font-weight: 800; }
+    .score-text   { font-size: 12px; color: #8b90b8; }
+
+    /* Risk bar */
+    .bar-track {
+      width: 100%; height: 5px; background: #2e3150;
+      border-radius: 99px; overflow: hidden; margin-top: 4px;
+    }
+    .bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+
+    /* Reasons */
+    .reasons {
+      padding: 0 16px 16px;
+      display: none;
+    }
+    .reasons.show { display: block; }
+    .reason-title { font-size: 11px; font-weight: 600; color: #8b90b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .reason-list  { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .reason-list li {
+      font-size: 12px; color: #c5c8e8;
+      padding-left: 14px; position: relative;
+    }
+    .reason-list li::before { content: "→"; position: absolute; left: 0; color: #8b90b8; }
+
+    /* Loading spinner */
+    .loading { text-align: center; padding: 32px 16px; color: #8b90b8; font-size: 13px; }
+    .spinner {
+      width: 28px; height: 28px; border: 3px solid #2e3150;
+      border-top-color: #6366f1; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    .footer {
+      padding: 10px 16px; border-top: 1px solid #2e3150;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .check-btn {
+      font-size: 12px; padding: 6px 14px; border-radius: 6px;
+      background: #6366f1; color: #fff; border: none; cursor: pointer;
+      font-weight: 600;
+    }
+    .check-btn:hover { background: #4f46e5; }
+    .open-link {
+      font-size: 12px; color: #8b90b8; text-decoration: none;
+    }
+    .open-link:hover { color: #818cf8; }
+
+    /* Colours */
+    .phishing   { color: #ef4444; }
+    .suspicious { color: #f59e0b; }
+    .safe       { color: #22c55e; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🛡️</div>
+    <div>
+      <div class="title">PhishGuard AI</div>
+      <div class="subtitle">Real-time phishing detection</div>
+    </div>
+  </div>
+
+  <div class="url-bar" id="urlBar">Detecting current URL…</div>
+
+  <div id="loadingArea" class="loading">
+    <div class="spinner"></div>
+    Checking URL…
+  </div>
+
+  <div id="resultArea" class="result" style="display:none"></div>
+  <div id="reasonsArea" class="reasons"></div>
+
+  <div class="footer">
+    <button class="check-btn" id="reCheckBtn">Re-check</button>
+    <a class="open-link" id="dashboardLink" href="#" target="_blank" rel="noopener">Open Dashboard ↗</a>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

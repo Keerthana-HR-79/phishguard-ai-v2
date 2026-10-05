@@ -1,0 +1,27 @@
+# Render Blueprint — PhishGuard AI backend (FastAPI + XGBoost).
+#
+# One-time setup: in the Render dashboard choose "New +" -> "Blueprint",
+# connect this (private) GitHub repo, and Render reads this file automatically.
+# Everything below is reproducible infra-as-code, so a redeploy needs no clicks.
+#
+# The frontend is a static site and is NOT deployed here — it goes to Vercel
+# (see DEPLOY.md). After the frontend is live, tighten CORS_ORIGINS below from
+# "*" to the exact Vercel URL and redeploy.
+services:
+  - type: web
+    name: phishguard-backend
+    runtime: python
+    rootDir: backend                 # requirements.txt + main.py live in backend/
+    plan: free                       # 512 MB RAM; spins down after ~15 min idle
+    region: singapore                # closest to India; change if you prefer
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true                 # redeploy on every push to main
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.1                # matches the local venv + AgriChain pin
+      - key: CORS_ORIGINS
+        # Demo default lets any origin call the API. After the Vercel URL exists,
+        # replace "*" with e.g. "https://phishguard-ai.vercel.app" and redeploy.
+        value: "*"

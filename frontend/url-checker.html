@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>URL Checker — PhishGuard AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-checker">
+  <nav class="navbar">
+    <a class="navbar-logo" href="index.html">🛡️ PhishGuard AI</a>
+    <ul class="navbar-links">
+      <li><a class="navbar-link" href="index.html">Home</a></li>
+      <li><a class="navbar-link active" href="url-checker.html">URL Checker</a></li>
+      <li><a class="navbar-link" href="dashboard.html">Dashboard</a></li>
+      <li><a class="navbar-link" href="extension.html">Extension</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    <div class="header">
+      <h1>URL Checker</h1>
+      <p>Paste a link to get an instant phishing verdict.</p>
+    </div>
+
+    <div class="inputRow">
+      <label for="urlInput" class="sr-only">URL to check for phishing</label>
+      <input id="urlInput" type="text" placeholder="https://example.com/login" autocomplete="off" spellcheck="false" aria-label="URL to check for phishing">
+      <button id="checkBtn" class="btn-primary">Check</button>
+    </div>
+
+    <div class="examples">
+      <span class="examplesLabel">Try:</span>
+      <span id="examples"></span>
+    </div>
+
+    <div id="error" class="error" style="display:none" role="alert"></div>
+    <div id="result" aria-live="polite" aria-atomic="true"></div>
+
+    <section class="howItWorks">
+      <h2>How URL detection works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="stepTitle">1. Feature extraction</div>
+          <div class="stepDesc">The URL is broken into 22 signals — length, subdomain depth, brand look-alikes, raw IP, @-tricks, suspicious TLDs, punycode/IDN homographs and more — plus character- and word-level TF-IDF.</div>
+        </div>
+        <div class="step">
+          <div class="stepTitle">2. Trusted-root guard</div>
+          <div class="stepDesc">Known-legitimate domains (exact registrable-root match) are cleared instantly, so real sites are never wrongly flagged.</div>
+        </div>
+        <div class="step">
+          <div class="stepTitle">3. ML + rules</div>
+          <div class="stepDesc">An XGBoost model scores the URL; structural rules override it for unambiguous attacks like @-redirects and raw-IP hosts.</div>
+        </div>
+        <div class="step">
+          <div class="stepTitle">4. Risk score</div>
+          <div class="stepDesc">You get a 0–10 risk score, a clear verdict, and the exact reasons behind it.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/env.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/checker.js"></script>
+</body>
+</html>

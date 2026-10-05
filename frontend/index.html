@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhishGuard AI — Real-time phishing detection</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-home">
+  <nav class="navbar">
+    <a class="navbar-logo" href="index.html">🛡️ PhishGuard AI</a>
+    <ul class="navbar-links">
+      <li><a class="navbar-link active" href="index.html">Home</a></li>
+      <li><a class="navbar-link" href="url-checker.html">URL Checker</a></li>
+      <li><a class="navbar-link" href="dashboard.html">Dashboard</a></li>
+      <li><a class="navbar-link" href="extension.html">Extension</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    <section class="hero">
+      <span class="heroBadge">AI-Powered Phishing Defense</span>
+      <h1>Stop phishing<br>before it starts</h1>
+      <p class="heroSub">
+        PhishGuard AI checks any URL in real time using an XGBoost model backed by
+        structural security rules — then logs every scan to a live analytics dashboard.
+      </p>
+      <div class="heroCta">
+        <a class="btn-primary" href="url-checker.html">Check a URL →</a>
+        <a class="btn-secondary" href="dashboard.html">View Dashboard</a>
+        <a class="btn-secondary" href="phishguard-extension.zip" download>⬇ Download Extension</a>
+      </div>
+    </section>
+
+    <section class="statsBar">
+      <div class="statItem"><div class="statVal">XGBoost</div><div class="statKey">ML Model</div></div>
+      <div class="statItem"><div class="statVal">22 URL signals</div><div class="statKey">Features</div></div>
+      <div class="statItem"><div class="statVal">ML + rules</div><div class="statKey">Detection</div></div>
+      <div class="statItem"><div class="statVal">Real-time</div><div class="statKey">Analysis</div></div>
+    </section>
+
+    <section class="features">
+      <h2>What it does</h2>
+      <div class="featureGrid">
+        <div class="featureCard">
+          <div class="featureIcon">🔗</div>
+          <h3>URL Detection</h3>
+          <p>Paste any link and get an instant phishing verdict from the XGBoost model plus structural rules.</p>
+        </div>
+        <div class="featureCard">
+          <div class="featureIcon">🛡️</div>
+          <h3>Hybrid Scoring</h3>
+          <p>ML probability is combined with rule-based checks — brand spoofing, @-tricks, raw-IP hosts, suspicious TLDs — into a single risk score.</p>
+        </div>
+        <div class="featureCard">
+          <div class="featureIcon">📊</div>
+          <h3>Live Dashboard</h3>
+          <p>Every scan is logged and surfaced as KPIs, a 7-day trend and a recent-activity feed.</p>
+        </div>
+        <div class="featureCard">
+          <div class="featureIcon">🧩</div>
+          <h3>Chrome Extension</h3>
+          <p>A Manifest V3 extension checks every tab you open and warns you before a phishing page can do harm.</p>
+        </div>
+        <div class="featureCard">
+          <div class="featureIcon">📈</div>
+          <h3>Power BI Reports</h3>
+          <p>Export scan history to CSV and build a star-schema Power BI model with DAX KPI measures.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="arch">
+      <h2>How it works</h2>
+      <div class="archFlow">
+        <div class="archItem"><div class="archBox">User submits a URL</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Normalize &amp; de-fang (hxxp→http, [.]→. , collapse slashes)</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Allowlist — 245 trusted roots → instant SAFE</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Feature extraction — 22 signals + char/word TF-IDF</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">XGBoost model scores the URL (the decider)</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Rule engine — structural overrides + decisive blocklist + weighted signals</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Risk score + explanation</div></div>
+        <div class="archArrow">↓</div>
+        <div class="archItem"><div class="archBox">Logged to dashboard &amp; Power BI</div></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
