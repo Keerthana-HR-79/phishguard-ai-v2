@@ -11,8 +11,8 @@
 // (run from the extension's service-worker console). The defaults below are the
 // documented local-dev setup.
 
-const DEFAULT_API_BASE       = "http://localhost:8000";
-const DEFAULT_DASHBOARD_URL  = "http://localhost:3000/dashboard.html";
+const DEFAULT_API_BASE       = "https://phishguard-backend-v2-qxrz.onrender.com";
+const DEFAULT_DASHBOARD_URL  = "https://phishguard-ai-v2-frontend.vercel.app/dashboard.html";
 const API_TIMEOUT_MS         = 8000;        // never hang the UI on a dead backend
 const CACHE_TTL_MS           = 60 * 1000;   // per-URL verdict freshness
 const CACHE_PREFIX           = "cache:";    // namespaces cache entries from config keys

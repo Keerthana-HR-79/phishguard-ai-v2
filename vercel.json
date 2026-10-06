@@ -3,6 +3,5 @@
   "buildCommand": null,
   "outputDirectory": "frontend",
   "framework": null,
-  "cleanUrls": true,
   "trailingSlash": false
 }
