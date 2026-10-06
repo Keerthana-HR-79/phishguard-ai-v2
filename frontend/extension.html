@@ -21,8 +21,8 @@
     <section class="hero">
       <div class="extIcon">🧩</div>
       <h1>PhishGuard Chrome Extension</h1>
-      <p>Check every page you visit automatically. The extension calls your local
-         PhishGuard backend and warns you the moment a tab looks like phishing.</p>
+      <p>Check every page you visit automatically. The extension sends each tab's URL
+         to the PhishGuard backend and warns you the moment a tab looks like phishing.</p>
       <div style="margin-top:24px">
         <a class="btn-primary" href="phishguard-extension.zip" download>⬇ Download Extension</a>
       </div>
@@ -31,7 +31,7 @@
     <section class="featGrid">
       <div class="featCard"><span class="featIcon">⚡</span><span>Instant checks on every tab</span></div>
       <div class="featCard"><span class="featIcon">🔔</span><span>Live warning banner on risky pages</span></div>
-      <div class="featCard"><span class="featIcon">🔒</span><span>Private — talks only to your local backend</span></div>
+      <div class="featCard"><span class="featIcon">🔒</span><span>Private — only the URL is checked, never page content</span></div>
       <div class="featCard"><span class="featIcon">🎨</span><span>Clean one-click verdict popup</span></div>
     </section>
 
@@ -69,17 +69,17 @@
         <div class="step">
           <div class="stepNum">5</div>
           <div>
-            <div class="stepTitle">Start the backend</div>
-            <div class="stepDesc">Make sure the FastAPI backend is running on port 8000 so the extension can check URLs.</div>
+            <div class="stepTitle">Pin it and start scanning</div>
+            <div class="stepDesc">It's preconfigured to use the hosted backend — click the icon on any page. The first check after a while may take ~30–60s while the free backend wakes up.</div>
           </div>
         </div>
       </div>
     </section>
 
     <div class="noteCard">
-      <strong>Note:</strong> the extension talks to your local PhishGuard backend at
-      <code>http://localhost:8000</code>. Start it with
-      <code>uvicorn main:app --port 8000</code> in the <code>backend/</code> folder before browsing.
+      <strong>Note:</strong> the extension is preconfigured to call the hosted PhishGuard
+      backend, so there's nothing to run locally. To point it at a different backend, set
+      <code>apiBase</code> in the extension's storage (see <code>extension/config.js</code>).
     </div>
   </main>
 </body>
